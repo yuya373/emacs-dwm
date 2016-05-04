@@ -195,10 +195,13 @@
       (progn
         (advice-add 'delete-window :around 'dwm-continue-main-window)
         (advice-add 'switch-to-buffer-other-window :around 'dwm-switch-to-buffer)
-        (advice-add 'switch-to-buffer :around 'dwm-switch-to-buffer))
+        (advice-add 'switch-to-buffer :around 'dwm-switch-to-buffer)
+        (advice-add 'pop-to-buffer :around 'dwm-switch-to-buffer))
     (advice-remove 'delete-window 'dwm-continue-main-window)
     (advice-remove 'switch-to-buffer-other-window 'dwm-switch-to-buffer)
-    (advice-remove 'switch-to-buffer 'dwm-switch-to-buffer)))
+    (advice-remove 'switch-to-buffer 'dwm-switch-to-buffer)
+    (advice-remove 'pop-to-buffer 'dwm-switch-to-buffer)
+    ))
 
 (provide 'dwm)
 ;;; dwm.el ends here
