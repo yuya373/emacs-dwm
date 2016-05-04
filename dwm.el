@@ -101,9 +101,7 @@
                      :top-pos (dwm-win-top-pos main-win-edges))))
 
 (defun dwm-last-sub-window ()
-  (let ((main-win-edges (window-edges (dwm-main-window))))
-    (dwm-find-window :left-pos (dwm-win-right-pos main-win-edges)
-                     :bottom-pos (dwm-win-bottom-pos main-win-edges))))
+  (cdr (car (last (dwm-sub-windows)))))
 
 (defun dwm-create-sub-buffer (buffer)
   (let ((sub-window (split-window (dwm-main-window) nil 'right)))
