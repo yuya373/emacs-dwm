@@ -111,7 +111,12 @@
   (let ((sub-window (dwm-first-sub-window)))
     (if sub-window
         (progn
-          (split-window sub-window window-min-height 'above)
+          (condition-case _e
+              (split-window sub-window window-min-height 'above)
+            (error (let ((last-sub-win (dwm-last-sub-window)))
+                     (delete-window last-sub-win)
+                     (balance-windows)
+                     (split-window (dwm-first-sub-window) window-min-height 'above))))
           (set-window-buffer (dwm-first-sub-window) buffer))
       (dwm-create-sub-buffer buffer))))
 
