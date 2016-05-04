@@ -158,11 +158,13 @@
 
 (defun dwm-switch-to-buffer (org-func buffer-or-name &rest args)
   (let* ((main-window (dwm-main-window))
-         (win-buf (window-buffer main-window)))
-    (dwm--load-buffer main-window
-                      ;; (apply org-func buffer-or-name args)
-                      (get-buffer-create buffer-or-name)
-                      win-buf)))
+         (win-buf (window-buffer main-window))
+         (loading-buf (get-buffer-create buffer-or-name)))
+    (if (dwm-match-ignore-p loading-buf)
+        (apply org-func buffer-or-name args)
+      (dwm--load-buffer main-window
+                        loading-buf
+                        win-buf))))
 
 (defun dwm-next-buffer ()
   (interactive)
