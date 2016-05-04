@@ -139,14 +139,17 @@
       t))
 
 (defun dwm--load-buffer (win loading-buf &optional before-win-buf)
-  (unless (dwm-match-ignore-p loading-buf)
+  (unless (and before-win-buf
+               (equal (buffer-name loading-buf)
+                      (buffer-name before-win-buf)))
     (select-window win)
     (save-selected-window
       (dwm-delete-duplicated-buffer loading-buf)
       (set-window-buffer win loading-buf)
       (if before-win-buf
           (dwm-load-sub-buffer before-win-buf))
-      (balance-windows))))
+      (balance-windows))
+    (set-buffer loading-buf)))
 
 (defun dwm-load-buffer ()
   (interactive)
