@@ -29,7 +29,7 @@
   :prefix "dwm-"
   :group 'convenience)
 
-(defcustom dwm-ignore-buffers-regexp '("^\\*.*\\*$" "^\s.*$")
+(defcustom dwm-ignore-buffers-regexp '("helm")
   "Ignore buffers name regexp")
 
 (defun dwm-window-edges-alist ()
@@ -136,8 +136,7 @@
   (if (cl-find-if #'(lambda (regex)
                       (string-match regex (buffer-name buf)))
                   dwm-ignore-buffers-regexp)
-      t)
-  nil)
+      t))
 
 (defun dwm--load-buffer (win loading-buf &optional before-win-buf)
   (unless (dwm-match-ignore-p loading-buf)
